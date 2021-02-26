@@ -5,7 +5,7 @@ public class Main {
     static final int SIZE = 10000000;
     static final int HALF = SIZE / 2;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         method1();
         method2();
     }
@@ -29,20 +29,14 @@ public class Main {
         for (int i = 0; i < SIZE; i++) {
             arr[i] = 1.0f;
         }
-        Thread myThread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < HALF; i++) {
-                    a1[i] = (float)(a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-                }
+        Thread myThread1 = new Thread(() -> {
+            for (int i = 0; i < HALF; i++) {
+                a1[i] = (float)(a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
         });
-        Thread myThread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < HALF; i++) {
-                    a2[i] = (float)(a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-                }
+        Thread myThread2 = new Thread(() -> {
+            for (int i = 0; i < HALF; i++) {
+                a2[i] = (float)(a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
         });
         long a = System.currentTimeMillis();
