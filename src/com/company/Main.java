@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Arrays;
+
 public class Main {
 
     static final int SIZE = 10000000;
@@ -42,8 +44,13 @@ public class Main {
         long a = System.currentTimeMillis();
         System.arraycopy(arr, 0, a1, 0, HALF);
         System.arraycopy(arr, HALF, a2, 0, HALF);
-        myThread1.run();
-        myThread2.run();
+        myThread1.start();
+        myThread2.start();
+        try {
+            myThread1.join();
+            myThread2.join();
+        } catch (InterruptedException e) {
+        }
         System.arraycopy(a1, 0, arr, 0, HALF);
         System.arraycopy(a2, 0, arr, HALF, HALF);
         System.out.println(System.currentTimeMillis() - a);
